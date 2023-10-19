@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Importez le middleware cors
 
 require('dotenv').config();
 
 // Routes
-const routes = require('./routes')
+const routes = require('./routes');
 // database
-const db = require('./models')
+const db = require('./models');
 
 const app = express();
 
@@ -21,8 +22,13 @@ mongoose.connect(dbURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('MongoDB Connected... '))
-.catch(err => console.log(err));
+    .then(() => console.log('MongoDB Connected... '))
+    .catch(err => console.log(err));
+
+// Middleware CORS pour autoriser les origines spécifiques
+app.use(cors({
+    origin: 'http://localhost:3001' // Remplacez par l'origine de votre application front-end
+}));
 
 // Exemple de route
 app.get('/', (req, res) => {
@@ -31,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.use("/api", routes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
