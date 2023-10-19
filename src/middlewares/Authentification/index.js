@@ -2,6 +2,33 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../../models/users');
 
+// Middleware pour vérifier si l'email ou le username existe déjà
+exports.checkExistingUser = async (req, res, next) => {
+    try {
+        const { email, userName } = req.body;
+
+        // Vérifiez si l'email existe déjà dans la base de données
+        const existingEmail = await User.findOne({ email });
+
+        if (existingEmail) {
+            return res.status(400).json({ message: 'Cet email est déjà utilisé.' });
+        }
+
+        // Vérifiez si le nom d'utilisateur existe déjà dans la base de données
+        const existingUsername = await User.findOne({ userName });
+        console.log(existingUsername);
+
+        if (existingUsername) {
+            return res.status(400).json({ message: 'Ce nom d\'utilisateur est déjà utilisé.' });
+        }
+
+        // Si ni l'email ni le nom d'utilisateur n'existent, passez à l'étape suivante
+        next();
+    } catch (error) {
+        next(error);
+    }
+};
+
 exports.verifyTokenAuth = async (req, res, next) =>{
     try {
         const token = req.headers.authorization.split(' ')[1];
@@ -16,3 +43,4 @@ exports.verifyTokenAuth = async (req, res, next) =>{
         res.status(401).send({ message: 'Authentification échouée' });
     }
 }
+
