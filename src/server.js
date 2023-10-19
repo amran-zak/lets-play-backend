@@ -27,7 +27,7 @@ mongoose.connect(dbURI, {
 
 // Middleware CORS pour autoriser les origines spécifiques
 app.use(cors({
-    origin: 'http://localhost:3001' // Remplacez par l'origine de votre application front-end
+    origin: 'http://localhost:3000' // Remplacez par l'origine de votre application front-end
 }));
 
 // Exemple de route
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.use("/api", routes);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
