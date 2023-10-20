@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const User = require('../../models/users');
 
@@ -40,7 +41,7 @@ exports.verifyTokenAuth = async (req, res, next) =>{
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).send({ message: 'Authentification échouée' });
+        res.status(401).send({ message: 'Le token d\'authentification est invalide.' });
     }
 }
 
