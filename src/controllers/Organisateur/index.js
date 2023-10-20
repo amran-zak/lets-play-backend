@@ -23,3 +23,26 @@ exports.createSport = async (req, res, next) => {
         res.status(500).send(err.message);
     }
 };
+
+exports.updateSport = async (req, res, next) => {
+    try {
+        const sportId = req.params.sportId;
+        const data = {
+            ...req.body
+        }
+        await Sport.findByIdAndUpdate(
+            sportId, 
+            data, 
+            { runValidators: true, /* Exécuter les validateurs du modèle lors de la mise à jour*/ }
+        );
+        
+        return res.status(201).send({ message: 'Modification réussie!' });
+    } catch (err) {
+        if (err.codeName === 'DuplicateKey') {
+            return res.status(409).send({ message: 'Un événement avec les mêmes détails existe déjà.'});
+        } else {
+            return res.status(500).send({message : err.message});
+        }
+        
+    }
+};
