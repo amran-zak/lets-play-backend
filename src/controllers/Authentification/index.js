@@ -51,3 +51,26 @@ exports.forgotPassword = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.editProfile = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const data = {
+            ...req.body
+        }
+        await User.findByIdAndUpdate(
+            user._id, 
+            data, 
+            { runValidators: true, /* Exécuter les validateurs du modèle lors de la mise à jour*/ }
+        );
+        
+        return res.status(201).send({ message: 'Modification réussie!' });
+    } catch (err) {
+        if (err.codeName === 'DuplicateKey') {
+            return res.status(409).send({ message: 'Cet email ou Ce nom d\'utilisateur est déjà utilisé.'});
+        } else {
+            return res.status(500).send({message : err.message});
+        }
+        
+    }
+};
