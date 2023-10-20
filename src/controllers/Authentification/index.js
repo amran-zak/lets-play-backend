@@ -11,7 +11,7 @@ exports.signUp = async (req, res, next) => {
         let data = req.body;
         const user = new User(data);
         await user.save();
-        res.status(201).send({ message: 'Inscription réussie!' });
+        res.status(200).send({ message: 'Inscription réussie!' });
     } catch (error) {
         next(error);
     }
