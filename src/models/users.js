@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: { type: Number, required: true },
     yearBirth: { type: Number, required: true },
     city: { type: String, required: true },
+    roles: [{ type: String }],
 });
 
 userSchema.pre('save', async function(next) {
