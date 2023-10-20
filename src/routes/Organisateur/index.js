@@ -16,5 +16,7 @@ router.put(
   middlewares.isSportCreatedByOrg,
   controllers.updateSport
 );
+// Recuperation de sports de l'utilisateur connecté
+router.get("/sports", controllers.viewSports);
 
 module.exports = router;
