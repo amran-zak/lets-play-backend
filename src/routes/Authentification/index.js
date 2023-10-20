@@ -1,20 +1,26 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // middlewares
-const middlewares = require("../../middlewares/Authentification")
+const middlewares = require("../../middlewares/Authentification");
 
 // controllers
-const controllers = require('../../controllers/Authentification')
+const controllers = require("../../controllers/Authentification");
 
 // Inscription
-router.post('/sign-up',middlewares.checkExistingUser, controllers.signUp);
+router.post("/sign-up", middlewares.checkExistingUser, controllers.signUp);
 
 // Connexion
-router.post('/sign-in', controllers.signIn);
+router.post("/sign-in", controllers.signIn);
 
 // Forgot Password
-router.post('/forgot-password', controllers.forgotPassword);
+router.post("/forgot-password", controllers.forgotPassword);
 
+// Edit profile user
+router.put(
+  "/edit-profile",
+  middlewares.verifyTokenAuth,
+  controllers.editProfile
+);
 
 module.exports = router;
