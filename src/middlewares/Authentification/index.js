@@ -17,7 +17,6 @@ exports.checkExistingUser = async (req, res, next) => {
 
         // Vérifiez si le nom d'utilisateur existe déjà dans la base de données
         const existingUsername = await User.findOne({ userName });
-        console.log(existingUsername);
 
         if (existingUsername) {
             return res.status(400).json({ message: 'Ce nom d\'utilisateur est déjà utilisé.' });
