@@ -27,7 +27,7 @@ mongoose.connect(dbURI, {
 
 // Middleware CORS pour autoriser les origines spécifiques
 app.use(cors({
-    origin: 'http://localhost:3001' // Remplacez par l'origine de votre application front-end
+    origin: 'http://localhost:3000' // Remplacez par l'origine de votre application front-end
 }));
 
 // Exemple de route

@@ -28,7 +28,7 @@ exports.signIn = async (req, res, next) => {
         if (!isMatch) {
             return res.status(401).send({ message: 'Mot de passe incorrect' });
         }
-        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY_AUTH, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY_AUTH, { expiresIn: '24h' });
         res.send({ message: 'Connexion réussie', token });
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ exports.signIn = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
     try {
         const { email, newPassword } = req.body;
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email });
 
         if (!user) {
             return res.status(404).json({ message: 'Utilisateur non trouvé.' });
