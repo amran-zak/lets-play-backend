@@ -74,3 +74,14 @@ exports.editProfile = async (req, res, next) => {
         
     }
 };
+
+exports.getProfile = async (req, res, next) => {
+    try {
+        const user = req.user;
+        const data = await User.findById(user._id);
+        
+        return res.status(201).send({ message: 'Recuperation réussie!', user: data });
+    } catch (err) {
+        return res.status(500).send({message : err.message});
+    }
+};

@@ -16,6 +16,13 @@ router.post("/sign-in", controllers.signIn);
 // Forgot Password
 router.post("/forgot-password", controllers.forgotPassword);
 
+// get profile user 
+router.get(
+  "/get-profile",
+  middlewares.verifyTokenAuth,
+  controllers.getProfile
+);
+
 // Edit profile user
 router.put(
   "/edit-profile",
