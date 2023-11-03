@@ -56,3 +56,14 @@ exports.viewSports = async (req, res, next) => {
         return res.status(500).send({message : err.message});
     }
 };
+
+exports.viewSportByID = async (req, res, next) => {
+    try {
+        const id = req.params.sportId;
+        const user = req.user;
+        const sport = await Sport.findOne({organizer : user._id, _id: id});
+        return res.status(201).send({ message: 'Recuperation réussie!' , sport : sport});
+    } catch (err) {
+        return res.status(500).send({message : err.message});
+    }
+};

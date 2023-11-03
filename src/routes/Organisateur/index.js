@@ -18,5 +18,7 @@ router.put(
 );
 // Recuperation de sports de l'utilisateur connecté
 router.get("/sports", controllers.viewSports);
+// Recuperation de sport par ID de l'utilisateur connecté
+router.get("/sports/:sportId", middlewares.isSportCreatedByOrg,  controllers.viewSportByID);
 
 module.exports = router;
