@@ -13,7 +13,7 @@ router.post("/sports", middlewares.checkSportExists, controllers.createSport);
 // Modification d'un sport
 router.put(
   "/sports/:sportId",
-  middlewares.isSportCreatedByOrg,
+    [middlewares.isSportCreatedByOrg, middlewares.checkSportExists],
   controllers.updateSport
 );
 // Recuperation de sports de l'utilisateur connecté
