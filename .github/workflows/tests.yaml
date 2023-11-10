@@ -1,0 +1,25 @@
+name: Backend Tests
+
+on:
+  push:
+    branches:
+      - main # Déclenchez le workflow lorsque des modifications sont poussées sur la branche principale (changez-la selon vos besoins)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16 # Choisissez la version de Node.js dont vous avez besoin
+
+      - name: Install Dependencies
+        run: npm install # Assurez-vous d'installer les dépendances de votre backend
+
+      - name: Run Tests
+        run: npm test # Assurez-vous d'avoir une commande de test configurée dans votre projet
