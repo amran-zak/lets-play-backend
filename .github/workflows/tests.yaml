@@ -9,6 +9,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD}}
+      DATABASE_USER: ${{ secrets.DATABASE_USER}}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
+      DATABASE_NAME_TEST: ${{ secrets.DATABASE_NAME_TEST}}
+      
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
