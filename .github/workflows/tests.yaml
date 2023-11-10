@@ -3,7 +3,7 @@ name: Backend Tests
 on:
   push:
     branches:
-      - main # Déclenchez le workflow lorsque des modifications sont poussées sur la branche principale (changez-la selon vos besoins)
+      - Tests # Déclenchez le workflow lorsque des modifications sont poussées sur la branche principale (changez-la selon vos besoins)
 
 jobs:
   test:
@@ -14,7 +14,7 @@ jobs:
       DATABASE_USER: ${{ secrets.DATABASE_USER}}
       DATABASE_NAME: ${{ secrets.DATABASE_NAME}}
       DATABASE_NAME_TEST: ${{ secrets.DATABASE_NAME_TEST}}
-      
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
