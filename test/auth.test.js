@@ -17,7 +17,7 @@ describe('Auth API', () => {
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('message').eql('Inscription réussie!');
+                expect(res.body).to.have.property('message').eql('Inscription réussie !');
                 done();
             });
     });
