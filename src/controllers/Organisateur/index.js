@@ -1,5 +1,6 @@
 const Sport = require('../../models/sport');
 const User = require('../../models/users');
+const Participation = require('../../models/participation')
 
 exports.createSport = async (req, res, next) => {
     try {
@@ -63,6 +64,16 @@ exports.viewSportByID = async (req, res, next) => {
         const user = req.user;
         const sport = await Sport.findOne({organizer : user._id, _id: id});
         return res.status(201).send({ message: 'Recuperation réussie!' , sport : sport});
+    } catch (err) {
+        return res.status(500).send({message : err.message});
+    }
+};
+
+exports.viewParticipationsBySportId = async (req, res, next) => {
+    try {
+        const sportId = req.params.sportId;
+        const participations = await Participation.find({sport : sportId});
+        return res.status(201).send(participations);
     } catch (err) {
         return res.status(500).send({message : err.message});
     }
