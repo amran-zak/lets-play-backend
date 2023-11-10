@@ -10,8 +10,9 @@ describe('Auth API', () => {
         chai.request(app)
             .post('/api/auth/sign-up') 
             .send({
-                userName: 'testuser1',
-                password: 'testpassword1'
+                userName: 'testuser2',
+                password: 'testpassword2',
+                email: 'testemail2@gmail.com'
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
