@@ -10,13 +10,14 @@ describe('Auth API', () => {
         chai.request(app)
             .post('/api/auth/sign-up') 
             .send({
-                userName: 'testuser',
-                password: 'testpassword'
+                userName: 'testuser2',
+                password: 'testpassword2',
+                email: 'testemail2@gmail.com'
             })
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.be.an('object');
-                expect(res.body).to.have.property('message').eql('Inscription réussie!');
+                expect(res.body).to.have.property('message').eql('Inscription réussie !');
                 done();
             });
     });

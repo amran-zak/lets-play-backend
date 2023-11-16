@@ -6,7 +6,7 @@ exports.getAllSports = async (req, res, next) => {
         // Populate only the userName of organizer.
         const sports = await Sport.find().populate({
             path: 'organizer',
-            select: 'userName phoneNumber -_id' // Exclude the _id field, include userName and phoneNumber
+            select: 'userName phoneNumber _id'
         });
 
         // Now map over the sports to create a new array with modified phoneNumbers
