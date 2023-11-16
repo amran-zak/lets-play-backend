@@ -29,6 +29,9 @@ mongoose
   })
   .then(() => console.log("MongoDB Connected... "))
   .catch((err) => console.log(err));
+  app.get("/debug-sentry", function mainHandler(req, res) {
+    throw new Error("My first Sentry error!");
+  });
 
 // Middleware CORS pour autoriser les origines spécifiques
 app.use(
