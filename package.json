@@ -4,8 +4,9 @@
   "description": "Backend of application lets-play",
   "main": "server.js",
   "scripts": {
-    "start": "npx ./node_modules/cross-env NODE_ENV=development npx ./node_modules/nodemon ./src/server.js",
-    "test": "npx ./node_modules/cross-env NODE_ENV=test npx ./node_modules/mocha --exit --timeout 5000 ./test/**/*.js"
+    "start": "npx ./node_modules/cross-env NODE_ENV=development npx ./node_modules/nodemon ./src/server.js && npm run sentry:sourcemaps",
+    "test": "npx ./node_modules/cross-env NODE_ENV=test npx ./node_modules/mocha --exit --timeout 5000 ./test/**/*.js",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org letsplay-front --project letsplay-back ls node_modules && sentry-cli sourcemaps upload --org letsplay-front --project letsplay-back ls node_modules"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/amran-zak/lets-play-backend#readme",
   "dependencies": {
+    "@sentry/cli": "^2.21.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
