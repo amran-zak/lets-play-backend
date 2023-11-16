@@ -99,6 +99,8 @@ exports.deleteSportByID = async (req, res, next) => {
     // Supprimer le sport
     await Sport.findByIdAndDelete(sportId);
 
+    await Participation.deleteOne({sport: sportId});
+
     // Mettre à jour le rôle de l'organisateur s'il n'a plus d'événements organisés
     const user = await User.findById(userId);
     const userSports = await Sport.find({ organizer: userId });
