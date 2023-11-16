@@ -28,7 +28,7 @@ router.put("/sports/:sportId/participations/:participationId/reject", middleware
 // Suppression d'un sport par ID
 router.delete(
   "/sports/:sportId",
-  [middlewares.isSportCreatedByOrg, middlewares.checkSportExists],
+  [middlewares.isSportCreatedByOrg],
   controllers.deleteSportByID
 );
 
