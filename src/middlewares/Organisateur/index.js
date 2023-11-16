@@ -11,7 +11,6 @@ exports.checkSportExists = async (req, res, next) => {
             address: address,
             city: city
         });
-        console.log(existingSport)
         if (existingSport) {
             return res.status(400).send({ message:'Un événement avec les mêmes détails existe déjà.'});
         }
