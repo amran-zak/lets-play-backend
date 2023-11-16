@@ -78,3 +78,34 @@ exports.viewParticipationsBySportId = async (req, res, next) => {
         return res.status(500).send({message : err.message});
     }
 };
+
+exports.deleteSportByID = async (req, res, next) => {
+    try {
+        const sportId = req.params.sportId;
+        const userId = req.user._id;
+
+        // Vérifier si l'utilisateur est l'organisateur du sport
+        const sport = await Sport.findOne({ _id: sportId, organizer: userId });
+
+        if (!sport) {
+            return res.status(404).send({ message: 'Sport non trouvé.' });
+        }
+
+        // Supprimer le sport
+        await Sport.findByIdAndDelete(sportId);
+
+        // Mettre à jour le rôle de l'organisateur s'il n'a plus d'événements organisés
+        const user = await User.findById(userId);
+        const userSports = await Sport.find({ organizer: userId });
+
+        if (user && userSports.length === 0 && user.roles.includes('organizer')) {
+            // Retirer le rôle d'organisateur
+            user.roles = user.roles.filter(role => role !== 'organizer');
+            await user.save();
+        }
+
+        return res.status(200).send({ message: 'Suppression réussie!' });
+    } catch (err) {
+        return res.status(500).send({ message: err.message });
+    }
+};

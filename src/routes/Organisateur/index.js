@@ -23,5 +23,11 @@ router.get("/sports/:sportId", middlewares.isSportCreatedByOrg,  controllers.vie
 
 router.get("/sports/:sportId/participations", middlewares.isSportCreatedByOrg,  controllers.viewParticipationsBySportId);
 
+// Suppression d'un sport par ID
+router.delete(
+  "/sports/:sportId",
+  [middlewares.isSportCreatedByOrg, middlewares.checkSportExists],
+  controllers.deleteSportByID
+);
 
 module.exports = router;
