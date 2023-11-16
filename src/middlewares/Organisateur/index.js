@@ -2,14 +2,19 @@ const Sport = require('../../models/sport');
 
 exports.checkSportExists = async (req, res, next) => {
     try {
-        const { sport, date, startTime, endTime, address, city } = req.body;
+        const { sport, numberOfPeopleMax, numberOfPeopleCurrent, date, startTime, endTime, address, city, ageMin, ageMax, price } = req.body;
         const existingSport = await Sport.findOne({
             sport: sport,
+            numberOfPeopleMax: numberOfPeopleMax,
+            numberOfPeopleCurrent: numberOfPeopleCurrent,
             date: new Date(date),
             startTime: new Date(startTime),
             endTime: new Date(endTime),
             address: address,
-            city: city
+            city: city,
+            ageMin: ageMin,
+            ageMax: ageMax,
+            price: price
         });
         if (existingSport) {
             return res.status(400).send({ message:'Un événement avec les mêmes détails existe déjà.'});
