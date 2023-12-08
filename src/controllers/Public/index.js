@@ -26,3 +26,22 @@ exports.getAllSports = async (req, res, next) => {
     }
 };
 
+exports.getSportById = async (req, res, next) => {
+    try {
+        const sportId = req.params.id;
+
+        // Utilisez la méthode populate pour récupérer également l'organisateur
+        const sport = await Sport.findById(sportId).populate({
+            path: 'organizer',
+            select: 'userName phoneNumber _id'
+        });
+
+        if (!sport) {
+            return res.status(404).json({ message: 'Sport non trouvé.' });
+        }
+
+        return res.status(200).json({ message: 'Récupération réussie!', sport: sport });
+    } catch (error) {
+        next(error);
+    }
+};

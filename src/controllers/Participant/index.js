@@ -23,38 +23,39 @@ exports.createParticipation = async (req, res, next) => {
       });
   }
 };
-exports.getMyAllParticipation = async (req, res) => {
-    const userId = req.user._id;
-    try {
-      const participations = await Participation.find({participant:userId}).populate('sport').populate([{ path: 'sport', populate: {path : 'organizer'}}]);
-      res.status(201).send(participations);
-    } catch (error) {
-      res
-        .status(500)
-        .send({
-          message: "Erreur lors de la création de la participation",
-          error: error.message,
-        });
-    }
-  };
 
-  exports.deleteParticipation = async (req, res, next) => {
-    const participationId = req.params.participationId;
-    try {
-      const participation = await Participation.findById(participationId);
-      let sport = await Sport.findById(participation.sport);
-      sport.numberOfPeopleCurrent--;
-      await sport.save();
-      await Participation.findByIdAndDelete(participationId)
-      res.status(201).send({
-        message: 'suppression succée!'
+exports.getMyAllParticipation = async (req, res) => {
+  const userId = req.user._id;
+  try {
+    const participations = await Participation.find({participant:userId}).populate('sport').populate([{ path: 'sport', populate: {path : 'organizer'}}]);
+    res.status(201).send(participations);
+  } catch (error) {
+    res
+      .status(500)
+      .send({
+        message: "Erreur lors de la création de la participation",
+        error: error.message,
       });
-    } catch (error) {
-      res
-        .status(500)
-        .send({
-          message: "Erreur lors de la suppression de la participation",
-          error: error.message,
-        });
-    }
-  };
+  }
+};
+
+exports.deleteParticipation = async (req, res, next) => {
+  const participationId = req.params.participationId;
+  try {
+    const participation = await Participation.findById(participationId);
+    let sport = await Sport.findById(participation.sport);
+    sport.numberOfPeopleCurrent--;
+    await sport.save();
+    await Participation.findByIdAndDelete(participationId)
+    res.status(201).send({
+      message: 'suppression succée!'
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({
+        message: "Erreur lors de la suppression de la participation",
+        error: error.message,
+      });
+  }
+};
