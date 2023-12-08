@@ -72,7 +72,19 @@ exports.viewSportByID = async (req, res, next) => {
   }
 };
 
-exports.viewParticipationsBySportId = async (req, res, next) => {
+exports.viewParticipationsGestionBySportId = async (req, res, next) => {
+  try {
+    const sportId = req.params.sportId;
+    const participations = await Participation.find({
+      sport: sportId,
+    }).populate("participant");
+    return res.status(201).send(participations);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+};
+
+exports.viewParticipationsListBySportId = async (req, res, next) => {
   try {
     const sportId = req.params.sportId;
     const participations = await Participation.find({

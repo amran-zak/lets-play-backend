@@ -41,3 +41,19 @@ exports.isSportCreatedByOrg = async (req, res, next) => {
         return res.status(500).send('Internal Server Error');
     }
 };
+
+exports.isSportCreatedByOrg = async (req, res, next) => {
+    try {
+        const sportId = req.params.sportId;
+        const user = req.user;
+        const sport = await Sport.findById(sportId);
+        if(!sport) return res.status(404).send({ message: 'L\'événement n\'existe pas'})
+        if (!sport.organizer.equals(user._id)) {
+            return res.status(400).send({ message:'Cet événement n\'a pas été crée par l\'organisateur connecté.'});
+        }
+        next();
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Internal Server Error');
+    }
+};

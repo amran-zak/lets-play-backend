@@ -10,5 +10,6 @@ const controllers = require("../../controllers/Public");
 // Renvoie la liste des sports propoposés
 router.get("/sports", controllers.getAllSports);
 
+router.get("/sport/:id", controllers.getSportById);
 
 module.exports = router;

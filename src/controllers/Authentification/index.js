@@ -85,3 +85,18 @@ exports.getProfile = async (req, res, next) => {
         return res.status(500).send({message : err.message});
     }
 };
+
+exports.getProfileById = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
+        }
+
+        return res.status(200).json({ message: 'Récupération réussie!', user: user });
+    } catch (error) {
+        next(error);
+    }
+};

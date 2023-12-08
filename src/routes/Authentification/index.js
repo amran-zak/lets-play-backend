@@ -23,6 +23,8 @@ router.get(
   controllers.getProfile
 );
 
+router.get('/profile/:id', controllers.getProfileById);
+
 // Edit profile user
 router.put(
   "/edit-profile",
