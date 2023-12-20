@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 app.use("/api", routes);
 
 if (process.env.NODE_ENV !== "test") {
-  const PORT = process.env.PORT || 5000 || 5001;
+  const PORT = process.env.PORT || 5002 || 5001;
   app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   });
