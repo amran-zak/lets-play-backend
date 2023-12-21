@@ -28,7 +28,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB Connected... "))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error(err));
   app.get("/debug-sentry", function mainHandler(req, res) {
     throw new Error("My first Sentry error!");
   });

@@ -90,7 +90,6 @@ exports.viewParticipationsListBySportId = async (req, res, next) => {
     const participations = await Participation.find({
       sport: sportId,
     }).populate("participant");
-    console.log(participations)
 
     return res.status(201).send(participations);
   } catch (err) {

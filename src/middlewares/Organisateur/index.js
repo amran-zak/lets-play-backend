@@ -21,7 +21,7 @@ exports.checkSportExists = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -37,7 +37,7 @@ exports.isSportCreatedByOrg = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -53,7 +53,7 @@ exports.isSportCreatedByOrg = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).send('Internal Server Error');
     }
 };

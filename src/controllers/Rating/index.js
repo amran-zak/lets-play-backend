@@ -22,7 +22,6 @@ exports.getByToAndFrom = async (req, res, next) => {
 
   try {
     const rating = await Rating.find({ to: toUserId, from: id });
-    console.log(rating)
     if (rating.length === 0) {
       const emptyRating = {
         id: null,
