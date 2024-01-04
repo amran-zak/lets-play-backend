@@ -59,3 +59,23 @@ exports.deleteParticipation = async (req, res, next) => {
       });
   }
 };
+
+exports.isParticipatingInSport = async (req, res) => {
+  try {
+    const sportId = req.params.sportId;
+    const userId = req.user._id;
+
+    // Vérifier si l'utilisateur participe au sport
+    const participation = await Participation.findOne({ participant: userId, sport: sportId }).populate('sport');
+    
+    // Si la participation n'est pas trouvée, l'utilisateur ne participe pas
+    if (!participation) {
+      return res.status(200).send({ isParticipating: false });
+    }
+
+    // Si la participation est trouvée, l'utilisateur participe
+    return res.status(200).send({ isParticipating: true, sport: participation.sport });
+  } catch (err) {
+    return res.status(500).send({ message: "Erreur serveur", error: err.message });
+  }
+};

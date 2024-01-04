@@ -3,6 +3,7 @@ const router = express.Router();
 
 // middlewares
 const middlewares = require("../../middlewares/Participant");
+const middlewaresAuthentification = require("../../middlewares/Authentification");
 
 // controllers
 const controllers = require("../../controllers/Participant");
@@ -14,5 +15,6 @@ router.get("/", controllers.getMyAllParticipation);
 
 router.delete("/:participationId", controllers.deleteParticipation);
 
+router.get("/isParticipating/:sportId", middlewaresAuthentification.verifyTokenAuth, controllers.isParticipatingInSport);
 
 module.exports = router;
